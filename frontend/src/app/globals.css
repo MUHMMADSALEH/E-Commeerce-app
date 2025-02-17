@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 91, 33, 182;
+  --background-rgb: 255, 255, 255;
+  --shop-purple: 91, 33, 182;
+  --shop-light-purple: 147, 51, 234;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-family: 'Playfair Display', serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .shop-button {
+    @apply bg-gradient-to-r from-shop-purple to-shop-lightPurple text-white rounded-full 
+    px-8 py-4 font-medium transition-all duration-300 hover:opacity-90 hover:scale-105 
+    focus:outline-none focus:ring-2 focus:ring-shop-purple focus:ring-offset-2 
+    shadow-lg hover:shadow-xl relative z-20;
+  }
+
+  .shop-input {
+    @apply w-full rounded-lg border border-gray-300 px-4 py-2 
+    focus:border-shop-purple focus:outline-none focus:ring-1 focus:ring-shop-purple
+    transition-all duration-200;
+  }
+
+  .shop-card {
+    @apply bg-white rounded-2xl shadow-lg p-6 transition-all duration-300 
+    hover:shadow-xl hover:scale-[1.03] transform relative z-20;
+  }
+}
+
+.floating-item {
+  position: fixed;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+  animation: float var(--float-time, 20s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  z-index: 0;
+}
+
+.floating-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(var(--rotate, 0deg));
+  transition: transform 0.3s ease-out;
+}
+
+.floating-item:hover img {
+  transform: rotate(0deg) scale(1.1);
+}
+
+/* Ensure footer is always on top */
+footer {
+  position: relative;
+  z-index: 30;
+}
+
+@keyframes float {
+  0% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--float-x, 0)), calc(-50% + var(--float-y, 0))) rotate(var(--rotate, 0deg)) scale(0.8);
+  }
+  10%, 90% {
+    opacity: 0.85;
+    transform: translate(
+      calc(-50% + var(--float-x, 0) + 20px),
+      calc(-50% + var(--float-y, 0) - 20px)
+    ) rotate(calc(var(--rotate, 0deg) + 5deg)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--float-x, 0)), calc(-50% + var(--float-y, 0))) rotate(var(--rotate, 0deg)) scale(0.8);
+  }
+}
+
+.hero-gradient {
+  background: radial-gradient(
+    circle at center,
+    rgba(91, 33, 182, 0.2) 0%,
+    rgba(91, 33, 182, 0.15) 25%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 300% auto;
+  animation: gradient 8s ease infinite;
+}
+
+.text-gradient {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-shop-purple to-shop-lightPurple;
+}
+
+/* Consistent text styles */
+h1, h2, h3, h4, h5, h6 {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-shop-purple to-shop-lightPurple;
+}
+
+p {
+  @apply text-shop-purple;
+} 
